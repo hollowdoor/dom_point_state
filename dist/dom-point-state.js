@@ -265,7 +265,8 @@ function pointState(element){
     var point = {},
         pointCB = createPointCB(point),
         down = false,
-        alive = true;
+        alive = true,
+        insideThis = false;
 
     element.addEventListener('mousemove', pointCB, false);
     element.addEventListener('touchmove', pointCB, false);
@@ -273,6 +274,8 @@ function pointState(element){
     element.addEventListener('touchstart', onDown, false);
     element.addEventListener('mouseup', onUp, false);
     element.addEventListener('touchend', onUp, false);
+    element.addEventListener('mouseleave', onMouseOut, false);
+    element.addEventListener('mouseover', onMouseOver, false);
 
     function onDown(){
         down = true;
@@ -280,6 +283,14 @@ function pointState(element){
 
     function onUp(){
         down = false;
+    }
+
+    function onMouseOut(){
+        insideThis = false;
+    }
+
+    function onMouseOver(){
+        insideThis = true;
     }
 
     Object.defineProperty(point, 0, {
@@ -305,6 +316,9 @@ function pointState(element){
             return !down;
         },
         inside: function inside(el){
+            if(el === element){
+                return insideThis;
+            }
             return pointInside(point, el);
         },
         destroy: function destroy(){
@@ -315,6 +329,8 @@ function pointState(element){
             element.removeEventListener('touchstart', onDown, false);
             element.removeEventListener('mouseup', onUp, false);
             element.removeEventListener('touchend', onUp, false);
+            element.removeEventListener('mouseleave', onMouseOut, false);
+            element.removeEventListener('mouseover', onMouseOver, false);
         },
         get alive(){
             return alive;

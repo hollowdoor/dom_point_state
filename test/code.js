@@ -343,17 +343,18 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var objectAssign = _interopDefault(index);
 
 
-var windowPoint = null;
-
 function getPointState(el){
     return pointState(el);
 }
 
-function getGlobalPointState(){
-    if(windowPoint === null){
-        windowPoint = pointState(window);
-    }
-    return windowPoint;
+function getGlobalPointStateFactory(){
+    var windowPoint = null;
+    return function getGlobalPointState(){
+        if(windowPoint === null){
+            windowPoint = pointState(window);
+        }
+        return windowPoint;
+    };
 }
 
 function pointState(element){
@@ -435,13 +436,14 @@ function pointState(element){
 }
 
 exports.getPointState = getPointState;
-exports.getGlobalPointState = getGlobalPointState;
+exports.getGlobalPointStateFactory = getGlobalPointStateFactory;
 
 });
 
-var bundle_2 = bundle$1.getGlobalPointState;
+var bundle_2 = bundle$1.getGlobalPointStateFactory;
 
-var point = bundle_2();
+var getGlobalPointState = bundle_2();
+var point = getGlobalPointState();
 var showx = document.querySelector('#showx');
 var showy = document.querySelector('#showy');
 

@@ -5,17 +5,18 @@ import {
     pointInside
 } from 'dom-plane';
 
-let windowPoint = null;
-
 export function getPointState(el){
     return pointState(el);
 }
 
-export function getGlobalPointState(){
-    if(windowPoint === null){
-        windowPoint = pointState(window);
-    }
-    return windowPoint;
+export function getGlobalPointStateFactory(){
+    let windowPoint = null;
+    return function getGlobalPointState(){
+        if(windowPoint === null){
+            windowPoint = pointState(window);
+        }
+        return windowPoint;
+    };
 }
 
 function pointState(element){

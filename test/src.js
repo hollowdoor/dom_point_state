@@ -1,5 +1,5 @@
-import {getGlobalPointState} from '../';
-
+import {getGlobalPointStateFactory} from '../';
+const getGlobalPointState = getGlobalPointStateFactory();
 let point = getGlobalPointState();
 let showx = document.querySelector('#showx');
 let showy = document.querySelector('#showy');

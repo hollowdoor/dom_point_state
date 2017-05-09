@@ -10,8 +10,8 @@ Example
 -------
 
 ```javascript
-import {getGlobalPointState} from 'dom-point-state';
-
+import {getGlobalPointStateFactory} from 'dom-point-state';
+const getGlobalPointState = getGlobalPointStateFactory();
 let point = getGlobalPointState();
 //Show the x/y coordinates of the pointer
 let showx = document.querySelector('#showx');
@@ -25,6 +25,10 @@ window.addEventListener('mousemove', e=>{
 
 API
 ---
+
+### getGlobalPointStateFactory()
+
+This returns a `getGlobalPointState()` function.
 
 ### getGlobalPointState()
 

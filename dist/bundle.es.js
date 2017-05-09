@@ -1,17 +1,18 @@
 import objectAssign from 'object-assign';
 import { createPointCB, pointInside } from 'dom-plane';
 
-var windowPoint = null;
-
 function getPointState(el){
     return pointState(el);
 }
 
-function getGlobalPointState(){
-    if(windowPoint === null){
-        windowPoint = pointState(window);
-    }
-    return windowPoint;
+function getGlobalPointStateFactory(){
+    var windowPoint = null;
+    return function getGlobalPointState(){
+        if(windowPoint === null){
+            windowPoint = pointState(window);
+        }
+        return windowPoint;
+    };
 }
 
 function pointState(element){
@@ -92,5 +93,5 @@ function pointState(element){
     });
 }
 
-export { getPointState, getGlobalPointState };
+export { getPointState, getGlobalPointStateFactory };
 //# sourceMappingURL=bundle.es.js.map

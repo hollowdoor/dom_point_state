@@ -7,17 +7,18 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var objectAssign = _interopDefault(require('object-assign'));
 var domPlane = require('dom-plane');
 
-var windowPoint = null;
-
 function getPointState(el){
     return pointState(el);
 }
 
-function getGlobalPointState(){
-    if(windowPoint === null){
-        windowPoint = pointState(window);
-    }
-    return windowPoint;
+function getGlobalPointStateFactory(){
+    var windowPoint = null;
+    return function getGlobalPointState(){
+        if(windowPoint === null){
+            windowPoint = pointState(window);
+        }
+        return windowPoint;
+    };
 }
 
 function pointState(element){
@@ -99,5 +100,5 @@ function pointState(element){
 }
 
 exports.getPointState = getPointState;
-exports.getGlobalPointState = getGlobalPointState;
+exports.getGlobalPointStateFactory = getGlobalPointStateFactory;
 //# sourceMappingURL=bundle.js.map

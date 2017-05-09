@@ -247,17 +247,18 @@ function pointInside(point, el) {
     return point.y > rect.top && point.y < rect.bottom && point.x > rect.left && point.x < rect.right;
 }
 
-var windowPoint = null;
-
 function getPointState(el){
     return pointState(el);
 }
 
-function getGlobalPointState(){
-    if(windowPoint === null){
-        windowPoint = pointState(window);
-    }
-    return windowPoint;
+function getGlobalPointStateFactory(){
+    var windowPoint = null;
+    return function getGlobalPointState(){
+        if(windowPoint === null){
+            windowPoint = pointState(window);
+        }
+        return windowPoint;
+    };
 }
 
 function pointState(element){
@@ -339,7 +340,7 @@ function pointState(element){
 }
 
 exports.getPointState = getPointState;
-exports.getGlobalPointState = getGlobalPointState;
+exports.getGlobalPointStateFactory = getGlobalPointStateFactory;
 
 }((this.freeLine = this.freeLine || {})));
 //# sourceMappingURL=dom-point-state.js.map

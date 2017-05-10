@@ -376,6 +376,7 @@ function pointState(element){
 
     function onDown(){
         down = true;
+        console.log('went down');
     }
 
     function onUp(){
@@ -405,13 +406,28 @@ function pointState(element){
         enumerable: true
     });
 
-    return objectAssign(point, {
-        get down(){
+    Object.defineProperty(point, 'down', {
+        get: function get(){
             return down;
         },
-        get up(){
+        enumerable: true
+    });
+
+    Object.defineProperty(point, 'up', {
+        get: function get(){
             return !down;
         },
+        enumerable: true
+    });
+
+    Object.defineProperty(point, 'alive', {
+        get: function get(){
+            return alive;
+        },
+        enumerable: true
+    });
+
+    return objectAssign(point, {
         inside: function inside(el){
             if(el === element){
                 return insideThis;
@@ -428,9 +444,6 @@ function pointState(element){
             element.removeEventListener('touchend', onUp, false);
             element.removeEventListener('mouseleave', onMouseOut, false);
             element.removeEventListener('mouseover', onMouseOver, false);
-        },
-        get alive(){
-            return alive;
         }
     });
 }
@@ -446,11 +459,13 @@ var getGlobalPointState = bundle_2();
 var point = getGlobalPointState();
 var showx = document.querySelector('#showx');
 var showy = document.querySelector('#showy');
+var showDown = document.querySelector('#showdown');
 
 window.addEventListener('mousemove', function (e){
-    console.log(point);
+    //console.log(point);
     showx.textContent = point.x;
     showy.textContent = point.y;
+    showDown.textContent = point.down;
 });
 
 }());

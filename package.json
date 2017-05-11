@@ -1,6 +1,6 @@
 {
   "name": "dom-point-state",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The state of a point in the DOM",
   "main": "dist/bundle.js",
   "jsnext:main": "dist/bundle.es.js",

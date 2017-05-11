@@ -40,7 +40,6 @@ function pointState(element){
 
     function onDown(){
         down = true;
-        console.log('went down');
     }
 
     function onUp(){
